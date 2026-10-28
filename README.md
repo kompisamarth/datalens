@@ -287,3 +287,11 @@ This software is developed as an academic capstone project at **R.V. College of 
 **&copy; 2026 DataLens Studio. All rights reserved. • Made with ❤️ in RVCE**
 
 Archival COVID-19 epidemiological data is provided for educational demonstration purposes and attributed to public health tracking archives (Our World in Data / World Health Organization).
+## My Contributions
+
+- Worked on the project documentation.
+- Improved the README for clarity and setup instructions.
+
+## Technologies Used
+
+- Add the technologies actually used in this project.
