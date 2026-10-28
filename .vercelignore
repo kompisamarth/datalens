@@ -6,6 +6,3 @@ server/tests/
 scratch/
 .system_generated/
 *.log
-Dockerfile
-Procfile
-render.yaml
