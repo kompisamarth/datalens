@@ -38,8 +38,14 @@ app.use(configureSession());
 // CSRF Protection
 app.use(csrfProtection);
 
-// Static Client Files with clean extension resolution
+// Static Client Files with clean extension resolution (supports both root and /client paths)
 app.use(express.static(clientDir, { extensions: ['html'] }));
+app.use('/client', express.static(clientDir, { extensions: ['html'] }));
+
+// Root landing page handler
+app.get(['/', '/client', '/client/'], (req, res) => {
+  res.sendFile(path.resolve(clientDir, 'index.html'));
+});
 
 // API Rate Limiting
 app.use('/api/', generalRateLimiter);

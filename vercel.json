@@ -7,7 +7,55 @@
       "destination": "/api"
     },
     {
-      "source": "/((?!api|client|css|js|assets).*)",
+      "source": "/",
+      "destination": "/client/index.html"
+    },
+    {
+      "source": "/login",
+      "destination": "/client/login.html"
+    },
+    {
+      "source": "/register",
+      "destination": "/client/register.html"
+    },
+    {
+      "source": "/dashboard",
+      "destination": "/client/dashboard.html"
+    },
+    {
+      "source": "/datasets",
+      "destination": "/client/datasets.html"
+    },
+    {
+      "source": "/dataset-detail",
+      "destination": "/client/dataset-detail.html"
+    },
+    {
+      "source": "/analysis",
+      "destination": "/client/analysis.html"
+    },
+    {
+      "source": "/reports",
+      "destination": "/client/reports.html"
+    },
+    {
+      "source": "/settings",
+      "destination": "/client/settings.html"
+    },
+    {
+      "source": "/css/(.*)",
+      "destination": "/client/css/$1"
+    },
+    {
+      "source": "/js/(.*)",
+      "destination": "/client/js/$1"
+    },
+    {
+      "source": "/assets/(.*)",
+      "destination": "/client/assets/$1"
+    },
+    {
+      "source": "/((?!api|client).*)",
       "destination": "/client/$1"
     }
   ]
