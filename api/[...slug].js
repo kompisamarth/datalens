@@ -3,11 +3,6 @@ import { connectDB } from '../server/src/config/db.js';
 
 let isConnected = false;
 
-/**
- * Vercel Serverless Function entry point.
- * Bridges incoming serverless HTTP requests to the Express application
- * with pooled database connection management.
- */
 export default async function handler(req, res) {
   if (!isConnected) {
     try {
@@ -20,10 +15,14 @@ export default async function handler(req, res) {
         error: {
           code: 'DATABASE_CONNECTION_ERROR',
           message:
-            'Unable to connect to database. Please ensure MONGODB_URI is configured in Vercel environment variables.'
+            'Unable to connect to database. Please verify MONGODB_URI in Vercel environment variables.'
         }
       });
     }
+  }
+
+  if (!req.url.startsWith('/api')) {
+    req.url = '/api' + (req.url.startsWith('/') ? req.url : '/' + req.url);
   }
 
   return app(req, res);
