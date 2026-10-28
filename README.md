@@ -4,7 +4,7 @@
 > **Capstone Project:** Full-Stack Dataset Analytics, Quality Intelligence & Visual Studio  
 > **Stack:** HTML5, CSS3, Vanilla JavaScript (ES Modules), Chart.js, Node.js, Express.js, MongoDB, Mongoose
 
----
+--
 
 ## 1. Project Overview
 
