@@ -1,0 +1,45 @@
+{
+  "name": "datalens-studio",
+  "version": "1.0.0",
+  "description": "DataLens Studio — Personal dataset analytics, data quality intelligence, and visual exploration workspace",
+  "type": "module",
+  "main": "server/src/server.js",
+  "scripts": {
+    "start": "node server/src/server.js",
+    "dev": "node --watch server/src/server.js",
+    "seed": "node server/src/seed/seed.js",
+    "test": "node --test server/tests/*.test.js",
+    "deploy:vercel": "npx vercel"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "keywords": [
+    "analytics",
+    "data-quality",
+    "visualization",
+    "chartjs",
+    "mongodb",
+    "express",
+    "capstone"
+  ],
+  "author": "DataLens Studio Team",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "chart.js": "^4.6.1",
+    "connect-mongo": "^6.0.0",
+    "cors": "^2.8.6",
+    "csv-parser": "^3.2.1",
+    "dotenv": "^18.0.9",
+    "express": "^5.3.0",
+    "express-rate-limit": "^8.7.1",
+    "express-session": "^1.19.0",
+    "helmet": "^8.3.0",
+    "mongoose": "^9.11.4",
+    "multer": "^2.5.0"
+  },
+  "devDependencies": {
+    "supertest": "^7.3.1"
+  }
+}

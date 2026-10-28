@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Analysis Studio — DataLens Studio</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+  <link rel="stylesheet" href="/css/main.css">
+  <script src="/assets/chart.umd.min.js"></script>
+</head>
+<body>
+
+  <!-- Top Navigation -->
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="/dashboard.html" class="brand">
+        <img src="/assets/logo.svg" alt="DataLens Logo">
+        <span>DataLens Studio</span>
+      </a>
+
+      <nav>
+        <ul class="nav-links">
+          <li><a href="/dashboard.html" class="nav-link">Dashboard</a></li>
+          <li><a href="/datasets.html" class="nav-link">Datasets</a></li>
+          <li><a href="/analysis.html" class="nav-link active">Analysis Studio</a></li>
+          <li><a href="/reports.html" class="nav-link">Saved Reports</a></li>
+          <li><a href="/settings.html" class="nav-link">Settings</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <button type="button" class="theme-toggle-btn" aria-label="Toggle Theme">🌙</button>
+        <div class="user-badge">
+          <div class="user-avatar" id="navUserAvatar">U</div>
+          <span id="navUserName">Analyst</span>
+        </div>
+        <button type="button" class="btn btn-secondary btn-sm" id="btnLogout">Sign Out</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Studio Layout -->
+  <main class="main-content" style="max-width: 1400px;">
+    
+    <div class="page-header" style="margin-bottom: 20px;">
+      <div>
+        <h1 class="page-title" id="studioHeaderTitle">Analysis Studio</h1>
+        <p class="page-subtitle" id="studioHeaderSubtitle">Interactive charting, multi-dimensional aggregation, and report generation.</p>
+      </div>
+
+      <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+        <button type="button" class="btn btn-secondary" id="btnExportReport" style="display: none;">
+          📑 Download HTML Report
+        </button>
+        <button type="button" class="btn btn-secondary" id="btnDuplicateAnalysis" style="display: none;">
+          📋 Duplicate Analysis
+        </button>
+        <button type="button" class="btn btn-primary" id="btnOpenSaveModal">
+          💾 Save Analysis
+        </button>
+      </div>
+    </div>
+
+    <!-- 2-Column Studio Grid: Left Builder Panel & Right Visualization Stage -->
+    <div style="display: grid; grid-template-columns: 340px 1fr; gap: 24px; align-items: start;">
+      
+      <!-- LEFT CONFIGURATION PANEL -->
+      <section class="card" style="padding: 22px;">
+        <h2 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 16px; border-bottom: 1px solid var(--border); padding-bottom: 8px;">
+          Chart Dimensions & Filters
+        </h2>
+
+        <form id="chartConfigForm">
+          <!-- Dataset Selector -->
+          <div class="form-group">
+            <label for="datasetSelect" class="form-label">Target Dataset</label>
+            <select id="datasetSelect" class="form-select" required>
+              <option value="">Select a dataset...</option>
+            </select>
+          </div>
+
+          <!-- Chart Archetype -->
+          <div class="form-group">
+            <label for="chartTypeSelect" class="form-label">Chart Type</label>
+            <select id="chartTypeSelect" class="form-select">
+              <option value="line">📈 Line Chart (Time Series / Trend)</option>
+              <option value="bar" selected>📊 Bar Chart (Category Comparison)</option>
+              <option value="doughnut">🍩 Doughnut Chart (Composition)</option>
+              <option value="pie">🥧 Pie Chart (Share of Total)</option>
+              <option value="scatter">📍 Scatter Plot (2 Continuous Variables)</option>
+              <option value="histogram">📶 Histogram (Frequency Bins)</option>
+            </select>
+          </div>
+
+          <!-- X-Axis Dimension -->
+          <div class="form-group">
+            <label for="xAxisSelect" class="form-label">X-Axis Dimension</label>
+            <select id="xAxisSelect" class="form-select" required>
+              <option value="">Choose X-Axis column...</option>
+            </select>
+          </div>
+
+          <!-- Y-Axis Metric -->
+          <div class="form-group" id="yAxisGroup">
+            <label for="yAxisSelect" class="form-label">Y-Axis Metric</label>
+            <select id="yAxisSelect" class="form-select">
+              <option value="">Choose Y-Axis column...</option>
+            </select>
+          </div>
+
+          <!-- Aggregation Function -->
+          <div class="form-group" id="aggregationGroup">
+            <label for="aggregationSelect" class="form-label">Aggregation Function</label>
+            <select id="aggregationSelect" class="form-select">
+              <option value="sum">SUM (Total)</option>
+              <option value="average">AVERAGE (Mean)</option>
+              <option value="count">COUNT (Number of Records)</option>
+              <option value="min">MIN (Lowest Value)</option>
+              <option value="max">MAX (Highest Value)</option>
+              <option value="none">NONE (Raw Observations)</option>
+            </select>
+          </div>
+
+          <!-- Group By Dimension -->
+          <div class="form-group" id="groupByGroup">
+            <label for="groupBySelect" class="form-label">Group By / Series (Optional)</label>
+            <select id="groupBySelect" class="form-select">
+              <option value="">No grouping (single series)</option>
+            </select>
+          </div>
+
+          <!-- Filter Rules Builder -->
+          <div style="border-top: 1px solid var(--border); padding-top: 16px; margin-top: 18px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+              <label class="form-label" style="margin-bottom: 0;">Active Filters</label>
+              <button type="button" class="btn btn-secondary btn-sm" id="btnAddFilter" style="font-size: 0.78rem;">+ Add Rule</button>
+            </div>
+            
+            <div id="filterRulesList" style="display: flex; flex-direction: column; gap: 8px;">
+              <!-- Dynamic Filter Rows Injected Here -->
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary" id="btnRenderChart" style="width: 100%; margin-top: 22px;">
+            Render Visualization &rarr;
+          </button>
+        </form>
+      </section>
+
+      <!-- RIGHT VISUALIZATION STAGE -->
+      <section style="display: flex; flex-direction: column; gap: 20px;">
+        
+        <!-- Live Chart Canvas Card -->
+        <div class="card" style="padding: 24px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 8px;">
+            <div>
+              <h2 style="font-size: 1.25rem; font-weight: 800; color: var(--text-main);" id="renderedChartTitle">
+                Visualization Preview
+              </h2>
+              <p style="font-size: 0.85rem; color: var(--text-muted);" id="renderedChartSubtitle">
+                Select dimensions on the left and click "Render Visualization".
+              </p>
+            </div>
+            <div id="activeAggregationBadge"></div>
+          </div>
+
+          <div style="height: 440px; position: relative;">
+            <canvas id="studioChartCanvas"></canvas>
+            <div id="chartPlaceholder" style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; background: var(--bg-surface); color: var(--text-muted);">
+              <div style="font-size: 3rem; margin-bottom: 10px;">📊</div>
+              <div style="font-weight: 700; font-size: 1.1rem; color: var(--text-main);">Interactive Chart Canvas</div>
+              <p style="font-size: 0.9rem;">Choose dimensions on the left configuration panel to render.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Discovered Insights for Current Chart Card -->
+        <div class="card" style="padding: 22px;">
+          <h3 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 12px; color: var(--text-main);">
+            Key Findings & Analytical Observations
+          </h3>
+          <div id="activeInsightsContainer">
+            <p style="font-size: 0.88rem; color: var(--text-muted);">
+              Render or save an analysis to inspect automated takeaways.
+            </p>
+          </div>
+        </div>
+
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Global Footer -->
+  <footer class="app-footer">
+    <div class="app-footer-container">
+      <div class="app-footer-brand">
+        <img src="/assets/logo.svg" alt="DataLens Logo">
+        <span>DataLens Studio</span>
+        <span class="app-footer-tagline">| Turn raw data into clear decisions.</span>
+      </div>
+      <div class="app-footer-rvce">
+        <span>&copy; 2026 DataLens Studio. All rights reserved.</span>
+        <span>•</span>
+        <span>Made with <span class="app-footer-heart" title="Crafted with passion">❤️</span> in RVCE</span>
+      </div>
+      <div class="app-footer-links">
+        <a href="/dashboard.html">Dashboard</a>
+        <a href="/datasets.html">Datasets</a>
+        <a href="/analysis.html">Analysis</a>
+        <a href="/reports.html">Reports</a>
+        <a href="/settings.html">Settings</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Save / Update Analysis Modal -->
+  <div class="modal-backdrop" id="saveAnalysisModal">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 class="modal-title" id="saveModalTitle">Save Analytical Report</h3>
+        <button type="button" class="btn btn-secondary btn-sm" id="btnCloseSaveModal">&times;</button>
+      </div>
+
+      <form id="saveAnalysisForm">
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="saveTitleInput" class="form-label">Analysis Title</label>
+            <input type="text" id="saveTitleInput" class="form-input" placeholder="e.g. Wave 1 Mortality vs Confirmed Acceleration" required>
+          </div>
+
+          <div class="form-group">
+            <label for="saveDescInput" class="form-label">Description / Analytical Notes</label>
+            <textarea id="saveDescInput" class="form-textarea" rows="3" placeholder="Key conclusions, caveats, or takeaways from this chart..."></textarea>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" id="btnCancelSave">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="btnConfirmSave">Save Analysis</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script type="module" src="/js/theme.js"></script>
+  <script type="module" src="/js/auth.js"></script>
+  <script type="module" src="/js/modal.js"></script>
+  <script type="module" src="/js/analysis.js"></script>
+</body>
+</html>

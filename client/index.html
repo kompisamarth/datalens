@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DataLens Studio — Turn Raw Data into Clear Decisions</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+  <link rel="stylesheet" href="/css/main.css">
+  <script src="/assets/chart.umd.min.js"></script>
+</head>
+<body>
+
+  <!-- Top Navigation -->
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="/" class="brand">
+        <img src="/assets/logo.svg" alt="DataLens Studio Logo">
+        <span>DataLens Studio</span>
+        <span class="brand-badge">Capstone</span>
+      </a>
+
+      <nav>
+        <ul class="nav-links">
+          <li><a href="#features" class="nav-link">Features</a></li>
+          <li><a href="#quality" class="nav-link">Quality Audit</a></li>
+          <li><a href="#sample" class="nav-link">Sample Data</a></li>
+          <li><a href="/login.html" class="nav-link">Sign In</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <button type="button" class="theme-toggle-btn" aria-label="Toggle Theme">🌙</button>
+        <a href="/register.html" class="btn btn-primary btn-sm">Get Started Free</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <main class="main-content" style="max-width: 1100px;">
+    <section style="text-align: center; padding: 60px 0 40px 0;">
+      <div class="badge badge-primary" style="margin-bottom: 16px; padding: 6px 14px; font-size: 0.82rem;">
+        Dataset Analytics & Visualization Studio
+      </div>
+      <h1 style="font-size: 3rem; font-weight: 900; line-height: 1.15; margin-bottom: 20px; letter-spacing: -0.03em;">
+        Turn Raw Data into <span style="color: var(--primary);">Clear Decisions.</span>
+      </h1>
+      <p style="font-size: 1.2rem; color: var(--text-secondary); max-width: 680px; margin: 0 auto 32px auto;">
+        Upload CSV datasets, evaluate data cleanliness with reproducible quality scoring, discover hidden correlations, and build interactive analytical presentations in seconds.
+      </p>
+
+      <div style="display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;">
+        <a href="/register.html" class="btn btn-primary btn-lg">Launch Analytics Workspace &rarr;</a>
+        <a href="/login.html" class="btn btn-secondary btn-lg">Sign In to Account</a>
+      </div>
+    </section>
+
+    <!-- Interactive Benchmark Preview Card -->
+    <section id="sample" class="card" style="margin-bottom: 60px;">
+      <div class="card-header">
+        <div>
+          <h2 class="card-title">Live Sample Benchmark: COVID-19 Regional Trajectory</h2>
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 2px;">
+            Archival historical public health records (Our World in Data / WHO) rendered live via Chart.js
+          </p>
+        </div>
+        <div class="badge badge-success">Quality Score: 94 / 100</div>
+      </div>
+      <div class="card-body">
+        <div style="height: 350px; position: relative;">
+          <canvas id="landingDemoChart"></canvas>
+        </div>
+      </div>
+      <div class="card-footer">
+        <span style="font-size: 0.85rem; color: var(--text-muted);">
+          * No synthetic metrics. Calculated directly from real archival observations.
+        </span>
+        <a href="/login.html" class="btn btn-primary btn-sm">Explore in Studio &rarr;</a>
+      </div>
+    </section>
+
+    <!-- Key Unique Features Grid -->
+    <section id="features" style="margin-bottom: 60px;">
+      <div style="text-align: center; margin-bottom: 40px;">
+        <h2 style="font-size: 2rem; font-weight: 800; margin-bottom: 10px;">Built for Serious Exploratory Analysis</h2>
+        <p style="color: var(--text-muted);">Four distinctive capabilities that elevate DataLens beyond generic college CRUD apps.</p>
+      </div>
+
+      <div class="stats-grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
+        <div class="card" style="padding: 24px;">
+          <div class="stat-icon primary" style="margin-bottom: 16px;">🔍</div>
+          <h3 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 8px;">1. Data Quality Intelligence</h3>
+          <p style="font-size: 0.9rem; color: var(--text-secondary);">
+            Automated 0–100 health audit calculating missing cell ratios, duplicate records, mixed data types, and Tukey IQR outlier fences with actionable cleaning suggestions.
+          </p>
+        </div>
+
+        <div class="card" style="padding: 24px;">
+          <div class="stat-icon accent" style="margin-bottom: 16px;">⚡</div>
+          <h3 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 8px;">2. Autonomous Insights</h3>
+          <p style="font-size: 0.9rem; color: var(--text-secondary);">
+            Five-number summaries, category frequency distributions, Pearson correlation matrices ($r$), and temporal acceleration spikes discovered directly from dataset records.
+          </p>
+        </div>
+
+        <div class="card" style="padding: 24px;">
+          <div class="stat-icon success" style="margin-bottom: 16px;">📊</div>
+          <h3 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 8px;">3. Smart Chart Advisor</h3>
+          <p style="font-size: 0.9rem; color: var(--text-secondary);">
+            Rule-based charting engine that inspects column data types and cardinality to recommend suitable Line, Bar, Doughnut, Scatter, or Histogram visualizations.
+          </p>
+        </div>
+
+        <div class="card" style="padding: 24px;">
+          <div class="stat-icon warning" style="margin-bottom: 16px;">📑</div>
+          <h3 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 8px;">4. Reusable Reports & Exports</h3>
+          <p style="font-size: 0.9rem; color: var(--text-secondary);">
+            Persist complete analytical states with filters, aggregations, and insights. Export formula-injection safe CSVs or standalone, print-ready HTML executive reports.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Architecture & Tech Stack Banner -->
+    <section class="card" style="padding: 30px; background: var(--bg-subtle); margin-bottom: 40px; text-align: center;">
+      <h3 style="font-size: 1.2rem; font-weight: 700; margin-bottom: 12px;">Mandatory Capstone Architecture</h3>
+      <p style="font-size: 0.9rem; color: var(--text-muted); max-width: 700px; margin: 0 auto 20px auto;">
+        Engineered with Node.js, Express.js REST API v1, MongoDB with Mongoose, Server-Side Sessions via <code>connect-mongo</code>, CSRF validation, and Vanilla ES Modules with Chart.js.
+      </p>
+      <div style="display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;">
+        <span class="badge badge-neutral">Node.js 24</span>
+        <span class="badge badge-neutral">Express 5</span>
+        <span class="badge badge-neutral">MongoDB</span>
+        <span class="badge badge-neutral">Chart.js</span>
+        <span class="badge badge-neutral">ES Modules</span>
+        <span class="badge badge-neutral">CSRF & Helmet</span>
+      </div>
+    </section>
+  </main>
+
+  <!-- Global Footer -->
+  <footer class="app-footer">
+    <div class="app-footer-container">
+      <div class="app-footer-brand">
+        <img src="/assets/logo.svg" alt="DataLens Logo">
+        <span>DataLens Studio</span>
+        <span class="app-footer-tagline">| Turn raw data into clear decisions.</span>
+      </div>
+      <div class="app-footer-rvce">
+        <span>&copy; 2026 DataLens Studio. All rights reserved.</span>
+        <span>•</span>
+        <span>Made with <span class="app-footer-heart" title="Crafted with passion">❤️</span> in RVCE</span>
+      </div>
+      <div class="app-footer-links">
+        <a href="/login.html">Sign In</a>
+        <a href="/register.html">Get Started</a>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module" src="/js/theme.js"></script>
+  <script type="module" src="/js/auth.js"></script>
+  <script type="module" src="/js/landing.js"></script>
+</body>
+</html>

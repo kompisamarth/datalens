@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Saved Reports — DataLens Studio</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+  <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+
+  <!-- Top Navigation -->
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="/dashboard.html" class="brand">
+        <img src="/assets/logo.svg" alt="DataLens Logo">
+        <span>DataLens Studio</span>
+      </a>
+
+      <nav>
+        <ul class="nav-links">
+          <li><a href="/dashboard.html" class="nav-link">Dashboard</a></li>
+          <li><a href="/datasets.html" class="nav-link">Datasets</a></li>
+          <li><a href="/analysis.html" class="nav-link">Analysis Studio</a></li>
+          <li><a href="/reports.html" class="nav-link active">Saved Reports</a></li>
+          <li><a href="/settings.html" class="nav-link">Settings</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <button type="button" class="theme-toggle-btn" aria-label="Toggle Theme">🌙</button>
+        <div class="user-badge">
+          <div class="user-avatar" id="navUserAvatar">U</div>
+          <span id="navUserName">Analyst</span>
+        </div>
+        <button type="button" class="btn btn-secondary btn-sm" id="btnLogout">Sign Out</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    
+    <div class="page-header">
+      <div>
+        <h1 class="page-title">Saved Analytical Reports</h1>
+        <p class="page-subtitle">Reopen, edit, duplicate, or export your saved visualization workspaces.</p>
+      </div>
+
+      <div>
+        <a href="/analysis.html" class="btn btn-primary">
+          + New Analysis in Studio
+        </a>
+      </div>
+    </div>
+
+    <!-- Search & Sort Filter Bar -->
+    <div class="card" style="padding: 16px 20px; margin-bottom: 24px;">
+      <div style="display: flex; gap: 14px; flex-wrap: wrap; align-items: center; justify-content: space-between;">
+        <div style="flex: 1; min-width: 260px;">
+          <input type="text" id="reportSearch" class="form-input" placeholder="🔍 Search saved reports by title...">
+        </div>
+
+        <div>
+          <select id="reportSort" class="form-select" style="min-width: 200px;">
+            <option value="newest">Sort: Recently Updated</option>
+            <option value="oldest">Sort: Oldest First</option>
+            <option value="title">Sort: Title (A-Z)</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Reports Container -->
+    <div id="reportsContainer">
+      <div style="padding: 60px; text-align: center; color: var(--text-muted);">
+        Loading saved reports...
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Global Footer -->
+  <footer class="app-footer">
+    <div class="app-footer-container">
+      <div class="app-footer-brand">
+        <img src="/assets/logo.svg" alt="DataLens Logo">
+        <span>DataLens Studio</span>
+        <span class="app-footer-tagline">| Turn raw data into clear decisions.</span>
+      </div>
+      <div class="app-footer-rvce">
+        <span>&copy; 2026 DataLens Studio. All rights reserved.</span>
+        <span>•</span>
+        <span>Made with <span class="app-footer-heart" title="Crafted with passion">❤️</span> in RVCE</span>
+      </div>
+      <div class="app-footer-links">
+        <a href="/dashboard.html">Dashboard</a>
+        <a href="/datasets.html">Datasets</a>
+        <a href="/analysis.html">Analysis</a>
+        <a href="/reports.html">Reports</a>
+        <a href="/settings.html">Settings</a>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module" src="/js/theme.js"></script>
+  <script type="module" src="/js/auth.js"></script>
+  <script type="module" src="/js/modal.js"></script>
+  <script type="module" src="/js/reports.js"></script>
+</body>
+</html>

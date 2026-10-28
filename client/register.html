@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Account — DataLens Studio</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+  <link rel="stylesheet" href="/css/main.css">
+</head>
+<body style="display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 20px;">
+
+  <div style="position: absolute; top: 20px; right: 20px;">
+    <button type="button" class="theme-toggle-btn" aria-label="Toggle Theme">🌙</button>
+  </div>
+
+  <div class="card" style="max-width: 480px; width: 100%; box-shadow: var(--shadow-lg);">
+    <div class="card-body" style="padding: 36px 30px;">
+      
+      <div style="text-align: center; margin-bottom: 24px;">
+        <a href="/" style="display: inline-flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+          <img src="/assets/logo.svg" alt="DataLens Logo" width="36" height="36">
+          <span style="font-size: 1.3rem; font-weight: 800; color: var(--text-main);">DataLens Studio</span>
+        </a>
+        <h1 style="font-size: 1.5rem; font-weight: 800; color: var(--text-main); margin-bottom: 4px;">Get Started Free</h1>
+        <p style="font-size: 0.9rem; color: var(--text-muted);">Create your private workspace for data quality and analytics.</p>
+      </div>
+
+      <!-- Error Message Banner -->
+      <div id="errorBanner" style="display: none; padding: 12px 14px; background: var(--danger-light); color: var(--danger-text); border: 1px solid var(--danger); border-radius: var(--radius-sm); font-size: 0.88rem; margin-bottom: 20px;">
+      </div>
+
+      <form id="registerForm" novalidate>
+        <div class="form-group">
+          <label for="name" class="form-label">Full Name</label>
+          <input type="text" id="name" class="form-input" placeholder="Dr. Marcus Vance" required autocomplete="name">
+        </div>
+
+        <div class="form-group">
+          <label for="email" class="form-label">Email Address</label>
+          <input type="email" id="email" class="form-input" placeholder="marcus@datalens.edu" required autocomplete="email">
+        </div>
+
+        <div class="form-group">
+          <label for="password" class="form-label">Password</label>
+          <div class="password-input-wrap">
+            <input type="password" id="password" class="form-input" placeholder="••••••••" required autocomplete="new-password">
+            <button type="button" class="password-toggle-btn" id="togglePasswordBtn" aria-label="Toggle password visibility">👁️</button>
+          </div>
+          <div class="form-help">Must be at least 8 characters long.</div>
+        </div>
+
+        <div class="form-group">
+          <label for="passwordConfirm" class="form-label">Confirm Password</label>
+          <input type="password" id="passwordConfirm" class="form-input" placeholder="••••••••" required autocomplete="new-password">
+        </div>
+
+        <button type="submit" class="btn btn-primary" id="btnSubmit" style="width: 100%; margin-top: 10px;">
+          Create Free Account &rarr;
+        </button>
+      </form>
+
+      <div style="text-align: center; margin-top: 24px; font-size: 0.88rem; color: var(--text-muted);">
+        Already have an account? <a href="/login.html" style="font-weight: 600;">Sign in here</a>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Global Footer -->
+  <footer class="app-footer" style="background: transparent; border-top: none; padding-top: 0; padding-bottom: 24px;">
+    <div style="max-width: 600px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center;">
+      <div class="app-footer-rvce" style="justify-content: center; font-size: 0.82rem;">
+        <span>&copy; 2026 DataLens Studio</span>
+        <span>•</span>
+        <span>Made with <span class="app-footer-heart">❤️</span> in RVCE</span>
+      </div>
+      <div style="font-size: 0.76rem; color: var(--text-muted);">
+        Autonomous Dataset Analytics &amp; Visual Intelligence Studio
+      </div>
+    </div>
+  </footer>
+
+  <script type="module" src="/js/theme.js"></script>
+  <script type="module" src="/js/auth.js"></script>
+  <script type="module" src="/js/register.js"></script>
+</body>
+</html>

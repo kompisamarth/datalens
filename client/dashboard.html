@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard — DataLens Studio</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+  <link rel="stylesheet" href="/css/main.css">
+  <script src="/assets/chart.umd.min.js"></script>
+</head>
+<body>
+
+  <!-- Top Navigation -->
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="/dashboard.html" class="brand">
+        <img src="/assets/logo.svg" alt="DataLens Logo">
+        <span>DataLens Studio</span>
+      </a>
+
+      <nav>
+        <ul class="nav-links">
+          <li><a href="/dashboard.html" class="nav-link active">Dashboard</a></li>
+          <li><a href="/datasets.html" class="nav-link">Datasets</a></li>
+          <li><a href="/analysis.html" class="nav-link">Analysis Studio</a></li>
+          <li><a href="/reports.html" class="nav-link">Saved Reports</a></li>
+          <li><a href="/settings.html" class="nav-link">Settings</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <button type="button" class="theme-toggle-btn" aria-label="Toggle Theme">🌙</button>
+        <div class="user-badge" id="navUserBadge">
+          <div class="user-avatar" id="navUserAvatar">U</div>
+          <span id="navUserName">Analyst</span>
+        </div>
+        <button type="button" class="btn btn-secondary btn-sm" id="btnLogout">Sign Out</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    
+    <!-- Page Header & Quick Actions -->
+    <div class="page-header">
+      <div>
+        <h1 class="page-title" id="greetingTitle">Welcome Back</h1>
+        <p class="page-subtitle">Real-time workspace overview, quality health metrics, and analytical projects.</p>
+      </div>
+
+      <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+        <button type="button" class="btn btn-secondary" id="btnLoadSample">
+          ⚡ Load Sample COVID-19 Dataset
+        </button>
+        <button type="button" class="btn btn-primary" id="btnOpenUpload">
+          + Upload CSV Dataset
+        </button>
+      </div>
+    </div>
+
+    <!-- Live Metric Cards -->
+    <section class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon primary">📁</div>
+        <div class="stat-details">
+          <strong>Total Datasets</strong>
+          <div class="stat-value" id="statTotalDatasets">0</div>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon accent">📈</div>
+        <div class="stat-details">
+          <strong>Saved Analyses</strong>
+          <div class="stat-value" id="statTotalAnalyses">0</div>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon success">🛡️</div>
+        <div class="stat-details">
+          <strong>Avg Quality Score</strong>
+          <div class="stat-value" id="statAvgQuality">--</div>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon warning">🔢</div>
+        <div class="stat-details">
+          <strong>Total Records</strong>
+          <div class="stat-value" id="statTotalRows">0</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Two-Column Section: Recent Datasets & Recent Analyses -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); gap: 24px;">
+      
+      <!-- Recent Datasets -->
+      <section class="card">
+        <div class="card-header">
+          <h2 class="card-title">Recent Datasets</h2>
+          <a href="/datasets.html" class="btn btn-secondary btn-sm">View All &rarr;</a>
+        </div>
+        <div class="card-body" style="padding: 0;">
+          <div id="recentDatasetsContainer">
+            <div style="padding: 30px; text-align: center; color: var(--text-muted);">
+              Loading datasets...
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Recent Analyses -->
+      <section class="card">
+        <div class="card-header">
+          <h2 class="card-title">Recent Analyses</h2>
+          <a href="/reports.html" class="btn btn-secondary btn-sm">View All &rarr;</a>
+        </div>
+        <div class="card-body" style="padding: 0;">
+          <div id="recentAnalysesContainer">
+            <div style="padding: 30px; text-align: center; color: var(--text-muted);">
+              Loading saved analyses...
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Global Footer -->
+  <footer class="app-footer">
+    <div class="app-footer-container">
+      <div class="app-footer-brand">
+        <img src="/assets/logo.svg" alt="DataLens Logo">
+        <span>DataLens Studio</span>
+        <span class="app-footer-tagline">| Turn raw data into clear decisions.</span>
+      </div>
+      <div class="app-footer-rvce">
+        <span>&copy; 2026 DataLens Studio. All rights reserved.</span>
+        <span>•</span>
+        <span>Made with <span class="app-footer-heart" title="Crafted with passion">❤️</span> in RVCE</span>
+      </div>
+      <div class="app-footer-links">
+        <a href="/dashboard.html">Dashboard</a>
+        <a href="/datasets.html">Datasets</a>
+        <a href="/analysis.html">Analysis</a>
+        <a href="/reports.html">Reports</a>
+        <a href="/settings.html">Settings</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Upload Modal -->
+  <div class="modal-backdrop" id="uploadModal">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 class="modal-title">Upload CSV Dataset</h3>
+        <button type="button" class="btn btn-secondary btn-sm" id="btnCloseUploadModal">&times;</button>
+      </div>
+      
+      <form id="uploadForm">
+        <div class="modal-body">
+          <div id="uploadError" style="display: none; padding: 10px 14px; background: var(--danger-light); color: var(--danger-text); border-radius: var(--radius-sm); font-size: 0.88rem; margin-bottom: 16px;">
+          </div>
+
+          <!-- Drag and Drop Dropzone -->
+          <div class="dropzone" id="dropzone">
+            <div style="font-size: 2.2rem; margin-bottom: 8px;">📂</div>
+            <div style="font-weight: 600; margin-bottom: 4px;">Click to select or drag and drop your CSV file</div>
+            <div style="font-size: 0.8rem; color: var(--text-muted);">Supports standard .csv format up to 5 MB (max 10,000 rows)</div>
+            <input type="file" id="csvFileInput" accept=".csv,text/csv" style="display: none;">
+          </div>
+
+          <div id="selectedFileInfo" style="display: none; margin-top: 14px; padding: 10px 14px; background: var(--bg-subtle); border-radius: var(--radius-sm); font-size: 0.88rem; align-items: center; justify-content: space-between;">
+            <span id="selectedFileName" style="font-weight: 600;"></span>
+            <span id="selectedFileSize" style="color: var(--text-muted);"></span>
+          </div>
+
+          <div class="form-group" style="margin-top: 18px;">
+            <label for="datasetNameInput" class="form-label">Dataset Title (Optional)</label>
+            <input type="text" id="datasetNameInput" class="form-input" placeholder="e.g. Q3 Sales & Churn Analytics">
+            <div class="form-help">Leave empty to use original filename.</div>
+          </div>
+
+          <div class="form-group">
+            <label for="datasetDescInput" class="form-label">Description (Optional)</label>
+            <textarea id="datasetDescInput" class="form-textarea" rows="2" placeholder="Brief notes about data source or scope"></textarea>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" id="btnCancelUpload">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="btnSubmitUpload">
+            Upload & Audit Data &rarr;
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script type="module" src="/js/theme.js"></script>
+  <script type="module" src="/js/auth.js"></script>
+  <script type="module" src="/js/modal.js"></script>
+  <script type="module" src="/js/dashboard.js"></script>
+</body>
+</html>

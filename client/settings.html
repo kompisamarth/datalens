@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Settings — DataLens Studio</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+  <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+
+  <!-- Top Navigation -->
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="/dashboard.html" class="brand">
+        <img src="/assets/logo.svg" alt="DataLens Logo">
+        <span>DataLens Studio</span>
+      </a>
+
+      <nav>
+        <ul class="nav-links">
+          <li><a href="/dashboard.html" class="nav-link">Dashboard</a></li>
+          <li><a href="/datasets.html" class="nav-link">Datasets</a></li>
+          <li><a href="/analysis.html" class="nav-link">Analysis Studio</a></li>
+          <li><a href="/reports.html" class="nav-link">Saved Reports</a></li>
+          <li><a href="/settings.html" class="nav-link active">Settings</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <button type="button" class="theme-toggle-btn" aria-label="Toggle Theme">🌙</button>
+        <div class="user-badge">
+          <div class="user-avatar" id="navUserAvatar">U</div>
+          <span id="navUserName">Analyst</span>
+        </div>
+        <button type="button" class="btn btn-secondary btn-sm" id="btnLogout">Sign Out</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-content" style="max-width: 800px;">
+    
+    <div class="page-header">
+      <div>
+        <h1 class="page-title">Account & Workspace Settings</h1>
+        <p class="page-subtitle">Manage your profile, visual themes, security credentials, and data retention.</p>
+      </div>
+    </div>
+
+    <!-- 1. Profile Details Card -->
+    <div class="card" style="margin-bottom: 24px;">
+      <div class="card-header">
+        <h2 class="card-title">1. Profile Information</h2>
+      </div>
+      <form id="profileForm">
+        <div class="card-body">
+          <div class="form-group">
+            <label for="profileName" class="form-label">Full Name</label>
+            <input type="text" id="profileName" class="form-input" required minlength="2">
+          </div>
+
+          <div class="form-group">
+            <label for="profileEmail" class="form-label">Email Address (Read-only)</label>
+            <input type="email" id="profileEmail" class="form-input" disabled style="opacity: 0.7; cursor: not-allowed;">
+            <div class="form-help">Email address is bound to your tenant identity.</div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <button type="submit" class="btn btn-primary btn-sm" id="btnSaveProfile">
+            Save Profile Changes
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- 2. Visual Theme Preferences Card -->
+    <div class="card" style="margin-bottom: 24px;">
+      <div class="card-header">
+        <h2 class="card-title">2. Interface Theme Preference</h2>
+      </div>
+      <div class="card-body">
+        <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 16px;">
+          Select your default visual theme. Preference is persisted across browser sessions and devices.
+        </p>
+
+        <div style="display: flex; gap: 24px; flex-wrap: wrap;">
+          <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; padding: 12px 18px; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--bg-surface);">
+            <input type="radio" name="themeChoice" value="light" id="themeLightRadio">
+            <div>
+              <div style="font-weight: 700;">☀️ Light Theme (Default)</div>
+              <div style="font-size: 0.8rem; color: var(--text-muted);">High contrast light surfaces</div>
+            </div>
+          </label>
+
+          <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; padding: 12px 18px; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--bg-surface);">
+            <input type="radio" name="themeChoice" value="dark" id="themeDarkRadio">
+            <div>
+              <div style="font-weight: 700;">🌙 Dark Theme</div>
+              <div style="font-size: 0.8rem; color: var(--text-muted);">Deep slate dark mode</div>
+            </div>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. Security & Password Card -->
+    <div class="card" style="margin-bottom: 24px;">
+      <div class="card-header">
+        <h2 class="card-title">3. Password & Security</h2>
+      </div>
+      <form id="passwordForm">
+        <div class="card-body">
+          <div class="form-group">
+            <label for="currentPassword" class="form-label">Current Password</label>
+            <input type="password" id="currentPassword" class="form-input" required autocomplete="current-password">
+          </div>
+
+          <div class="form-group">
+            <label for="newPassword" class="form-label">New Password</label>
+            <input type="password" id="newPassword" class="form-input" required minlength="8" autocomplete="new-password">
+            <div class="form-help">Must be at least 8 characters long.</div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <button type="submit" class="btn btn-primary btn-sm" id="btnUpdatePassword">
+            Update Password
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- 4. Danger Zone Card -->
+    <div class="card" style="border-color: rgba(239, 68, 68, 0.4);">
+      <div class="card-header" style="background: var(--danger-light); border-bottom-color: rgba(239, 68, 68, 0.3);">
+        <h2 class="card-title" style="color: var(--danger-text);">4. Danger Zone: Delete Account</h2>
+      </div>
+      <div class="card-body">
+        <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 16px;">
+          Permanently delete your account. This operation immediately cascades to remove all uploaded datasets, data rows, saved analyses, and activity logs. <strong>This action is irreversible.</strong>
+        </p>
+
+        <button type="button" class="btn btn-danger btn-sm" id="btnOpenDeleteAccountModal">
+          Permanently Delete My Account
+        </button>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Global Footer -->
+  <footer class="app-footer">
+    <div class="app-footer-container">
+      <div class="app-footer-brand">
+        <img src="/assets/logo.svg" alt="DataLens Logo">
+        <span>DataLens Studio</span>
+        <span class="app-footer-tagline">| Turn raw data into clear decisions.</span>
+      </div>
+      <div class="app-footer-rvce">
+        <span>&copy; 2026 DataLens Studio. All rights reserved.</span>
+        <span>•</span>
+        <span>Made with <span class="app-footer-heart" title="Crafted with passion">❤️</span> in RVCE</span>
+      </div>
+      <div class="app-footer-links">
+        <a href="/dashboard.html">Dashboard</a>
+        <a href="/datasets.html">Datasets</a>
+        <a href="/analysis.html">Analysis</a>
+        <a href="/reports.html">Reports</a>
+        <a href="/settings.html">Settings</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Delete Account Confirmation Modal -->
+  <div class="modal-backdrop" id="deleteAccountModal">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 class="modal-title" style="color: var(--danger);">Confirm Account Deletion</h3>
+        <button type="button" class="btn btn-secondary btn-sm" id="btnCloseDeleteModal">&times;</button>
+      </div>
+      <form id="deleteAccountForm">
+        <div class="modal-body">
+          <p style="font-size: 0.9rem; color: var(--danger-text); background: var(--danger-light); padding: 12px; border-radius: var(--radius-sm); margin-bottom: 16px;">
+            ⚠️ Warning: All your stored datasets, records, and saved analytical reports will be permanently purged from the MongoDB database.
+          </p>
+          <div class="form-group">
+            <label for="deleteConfirmPassword" class="form-label">Enter your password to confirm:</label>
+            <input type="password" id="deleteConfirmPassword" class="form-input" required autocomplete="current-password">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" id="btnCancelDelete">Cancel</button>
+          <button type="submit" class="btn btn-danger" id="btnConfirmDeleteAccount">Delete Account & Everything</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script type="module" src="/js/theme.js"></script>
+  <script type="module" src="/js/auth.js"></script>
+  <script type="module" src="/js/modal.js"></script>
+  <script type="module" src="/js/settings.js"></script>
+</body>
+</html>

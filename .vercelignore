@@ -1,0 +1,8 @@
+.env
+.env.local
+.git/
+docs/
+server/tests/
+scratch/
+.system_generated/
+*.log
